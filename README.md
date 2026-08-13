@@ -1,50 +1,50 @@
 # BYOT Auto Notifications
 
-Plugin WooCommerce pentru notificari automate prin WhatsApp si SMS, trimise clientilor pe masura ce statusul comenzii se schimba.
+WooCommerce plugin for automated WhatsApp and SMS notifications, sent to customers as their order status changes.
 
-## Ce face
+## What it does
 
-- Se leaga de fiecare schimbare de status a unei comenzi WooCommerce (plasata, in procesare, finalizata, anulata etc).
-- Trimite un mesaj personalizat pe WhatsApp (Meta Cloud API) sau SMS (Twilio), in functie de gateway-ul configurat.
-- Normalizeaza automat numerele de telefon la formatul international E.164, folosind tara de facturare a comenzii.
-- Iti lasa control complet: alegi pentru ce statusuri se trimit notificari si scrii mesajul pentru fiecare.
-- Loghează erorile (telefon lipsa, gateway neconfigurat etc) direct in WooCommerce -> Status -> Logs.
+- Hooks into every WooCommerce order status change (placed, processing, completed, cancelled, etc).
+- Sends a customized message via WhatsApp (Meta Cloud API) or SMS (Twilio), depending on the configured gateway.
+- Automatically normalizes phone numbers to the international E.164 format, using the order's billing country.
+- Gives you full control: choose which statuses trigger a notification and write the message for each one.
+- Logs errors (missing phone, unconfigured gateway, etc) directly to WooCommerce -> Status -> Logs.
 
-## Placeholder-uri disponibile in mesaje
+## Available placeholders
 
 `{customer_name}`, `{order_id}`, `{order_total}`, `{status}`, `{site_name}`
 
-## Instalare
+## Installation
 
-1. Descarca sau cloneaza acest repo in `wp-content/plugins/byot-auto-notifications`.
-2. Activeaza pluginul din WordPress -> Plugins.
-3. Mergi la **WooCommerce -> BYOT Notifications** si configureaza gateway-ul (Twilio sau WhatsApp Cloud API).
-4. Bifeaza statusurile de comanda pentru care vrei notificari si personalizeaza mesajele.
+1. Download or clone this repo into `wp-content/plugins/byot-auto-notifications`.
+2. Activate the plugin from WordPress -> Plugins.
+3. Go to **WooCommerce -> BYOT Notifications** and configure your gateway (Twilio or WhatsApp Cloud API).
+4. Check the order statuses you want notifications for and customize the messages.
 
-## Cerinte
+## Requirements
 
 - WordPress 5.8+
 - WooCommerce 5.0+
 - PHP 7.4+
-- Cont Twilio si/sau cont Meta Business cu WhatsApp Cloud API activat
+- A Twilio account and/or a Meta Business account with WhatsApp Cloud API enabled
 
-## Structura proiectului
+## Project structure
 
 ```
 byot-auto-notifications/
-├── byot-auto-notifications.php   # bootstrap plugin
+├── byot-auto-notifications.php   # plugin bootstrap
 ├── includes/
-│   ├── class-byot-validator.php       # normalizare numere de telefon (E.164)
-│   ├── class-byot-gateway.php         # clasa de baza pentru gateway-uri
-│   ├── class-byot-twilio-gateway.php  # integrare Twilio SMS
-│   ├── class-byot-whatsapp-gateway.php# integrare WhatsApp Cloud API
-│   ├── class-byot-order-handler.php   # asculta schimbarile de status
-│   └── class-byot-admin.php           # pagina de setari din admin
+│   ├── class-byot-validator.php       # phone number normalization (E.164)
+│   ├── class-byot-gateway.php         # base gateway class
+│   ├── class-byot-twilio-gateway.php  # Twilio SMS integration
+│   ├── class-byot-whatsapp-gateway.php# WhatsApp Cloud API integration
+│   ├── class-byot-order-handler.php   # listens for status changes
+│   └── class-byot-admin.php           # admin settings page
 └── assets/
     ├── css/admin.css
     └── js/admin.js
 ```
 
-## Licenta
+## License
 
 GPL-2.0+

@@ -8,27 +8,27 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Notificari automate WhatsApp si SMS pentru WooCommerce, in functie de statusul comenzii.
+Automated WhatsApp and SMS notifications for WooCommerce, based on order status.
 
 == Description ==
-Trimite notificari automate prin WhatsApp sau SMS clientilor tai atunci cand statusul unei comenzi WooCommerce se schimba.
-Suporta Twilio pentru SMS si WhatsApp Cloud API (Meta) pentru WhatsApp.
-Numerele de telefon sunt normalizate automat la formatul international E.164, in functie de tara de facturare a comenzii.
+Sends automated WhatsApp or SMS notifications to your customers whenever a WooCommerce order status changes.
+Supports Twilio for SMS and WhatsApp Cloud API (Meta) for WhatsApp.
+Phone numbers are automatically normalized to the international E.164 format, based on the order's billing country.
 
 == Installation ==
-1. Incarca folderul pluginului in /wp-content/plugins/byot-auto-notifications/
-2. Activeaza pluginul din WordPress -> Plugins.
-3. Mergi la WooCommerce -> BYOT Notifications si configureaza gateway-ul dorit (Twilio sau WhatsApp Cloud API).
-4. Bifeaza statusurile de comanda pentru care vrei sa trimiti notificari si personalizeaza mesajele.
+1. Upload the plugin folder to /wp-content/plugins/byot-auto-notifications/
+2. Activate the plugin from WordPress -> Plugins.
+3. Go to WooCommerce -> BYOT Notifications and configure the gateway you want (Twilio or WhatsApp Cloud API).
+4. Check the order statuses you want to send notifications for and customize the messages.
 
 == Frequently Asked Questions ==
 
-= De ce nu se trimite notificarea? =
-Verifica in WooCommerce -> Status -> Logs (sursa "byot-auto-notifications") pentru detalii: gateway neconfigurat, numar de telefon lipsa/invalid sau template de mesaj gol.
+= Why isn't the notification being sent? =
+Check WooCommerce -> Status -> Logs (source "byot-auto-notifications") for details: unconfigured gateway, missing/invalid phone number, or empty message template.
 
-= Ce placeholder-uri pot folosi in mesaje? =
+= What placeholders can I use in messages? =
 {customer_name}, {order_id}, {order_total}, {status}, {site_name}
 
 == Changelog ==
 = 1.0.0 =
-* Lansare initiala.
+* Initial release.
