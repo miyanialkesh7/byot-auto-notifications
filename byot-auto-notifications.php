@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BYOT Auto Notifications
  * Description: Notificari automate WhatsApp si SMS pentru WooCommerce, in functie de statusul comenzii. Suport international pentru numere de telefon.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Byot
  * License: GPL-2.0+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -11,7 +11,7 @@
  * Requires at least: 5.8
  * Requires PHP: 7.4
  * WC requires at least: 5.0
- * WC tested up to: 8.9
+ * WC tested up to: 10.9
  *
  * @package BYOT_Auto_Notifications
  */
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'BYOT_AN_VERSION', '1.0.0' );
+define( 'BYOT_AN_VERSION', '1.0.1' );
 define( 'BYOT_AN_FILE', __FILE__ );
 define( 'BYOT_AN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BYOT_AN_URL', plugin_dir_url( __FILE__ ) );
