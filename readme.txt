@@ -2,9 +2,9 @@
 Contributors: Byot
 Tags: woocommerce, sms, whatsapp, notifications, twilio
 Requires at least: 5.8
-Tested up to: 6.6
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,5 +30,15 @@ Check WooCommerce -> Status -> Logs (source "byot-auto-notifications") for detai
 {customer_name}, {order_id}, {order_total}, {status}, {site_name}
 
 == Changelog ==
+= 1.0.1 =
+* Confirmed compatibility with WordPress 7.1 and WooCommerce 10.9.
+* Brought the codebase into full WordPress Coding Standards (PHPCS/WPCS) compliance.
+* Added a Plugin Check-aligned PHPCS ruleset and reviewed the code for security issues; no vulnerabilities found.
+* No functional changes to notification behavior.
+
 = 1.0.0 =
 * Initial release.
+
+== Upgrade Notice ==
+= 1.0.1 =
+Coding-standards, compliance, and WordPress 7.1 compatibility update. No settings or behavior changes — safe to update.
