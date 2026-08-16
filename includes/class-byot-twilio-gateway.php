@@ -27,6 +27,7 @@ class BYOT_Twilio_Gateway extends BYOT_Gateway {
 			$url,
 			array(
 				'headers' => array(
+					// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Required by the Twilio API's HTTP Basic Auth scheme, not used to obfuscate code.
 					'Authorization' => 'Basic ' . base64_encode( $sid . ':' . $this->settings['twilio_token'] ),
 				),
 				'body'    => array(

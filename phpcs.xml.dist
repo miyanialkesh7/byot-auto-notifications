@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ruleset name="BYOT Auto Notifications">
+	<description>Coding standards and Plugin Check compliance rules for the BYOT Auto Notifications plugin.</description>
+
+	<file>.</file>
+
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/languages/*</exclude-pattern>
+
+	<arg value="sp"/>
+	<arg name="basepath" value="."/>
+	<arg name="colors"/>
+	<arg name="extensions" value="php"/>
+
+	<config name="minimum_supported_wp_version" value="5.8"/>
+	<config name="testVersion" value="7.4-8.3"/>
+
+	<rule ref="WordPress-Extra"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!--
+	The main plugin bootstrap file is intentionally named after the plugin
+	slug (byot-auto-notifications.php), matching the file WordPress.org
+	loads by header, not after the BYOT_Auto_Notifications class it defines.
+	-->
+	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
+		<exclude-pattern>*/byot-auto-notifications\.php</exclude-pattern>
+	</rule>
+
+	<!--
+	manage_woocommerce is a real capability registered by WooCommerce core
+	(includes/class-wc-post-types.php), not a typo or an unregistered
+	custom capability.
+	-->
+	<rule ref="WordPress.WP.Capabilities">
+		<properties>
+			<property name="custom_capabilities" type="array">
+				<element value="manage_woocommerce"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="byot-auto-notifications"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>
