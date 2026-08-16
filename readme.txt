@@ -31,7 +31,7 @@ Check WooCommerce -> Status -> Logs (source "byot-auto-notifications") for detai
 
 == Changelog ==
 = 1.0.1 =
-* Confirmed compatibility with WordPress 7.1 and WooCommerce 10.9.
+* Confirmed compatibility with WordPress 7.1 and WooCommerce 11.0.
 * Brought the codebase into full WordPress Coding Standards (PHPCS/WPCS) compliance.
 * Added a Plugin Check-aligned PHPCS ruleset and reviewed the code for security issues; no vulnerabilities found.
 * No functional changes to notification behavior.

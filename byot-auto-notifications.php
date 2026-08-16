@@ -11,7 +11,7 @@
  * Requires at least: 5.8
  * Requires PHP: 7.4
  * WC requires at least: 5.0
- * WC tested up to: 10.9
+ * WC tested up to: 11.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
