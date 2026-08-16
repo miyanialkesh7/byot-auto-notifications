@@ -1,4 +1,10 @@
 <?php
+/**
+ * WooCommerce order status change listener.
+ *
+ * @package BYOT_Auto_Notifications
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -9,15 +15,22 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class BYOT_Order_Handler {
 
+	/**
+	 * Hooks into WooCommerce order status changes.
+	 */
 	public function __construct() {
 		add_action( 'woocommerce_order_status_changed', array( $this, 'handle_status_change' ), 10, 4 );
 	}
 
 	/**
-	 * @param int      $order_id
-	 * @param string   $old_status
-	 * @param string   $new_status
-	 * @param WC_Order $order
+	 * Sends a notification when an order enters a status the merchant
+	 * has enabled, provided the gateway is configured and the customer
+	 * has a phone number that normalizes to E.164.
+	 *
+	 * @param int      $order_id   Order ID.
+	 * @param string   $old_status Previous order status.
+	 * @param string   $new_status New order status.
+	 * @param WC_Order $order      Order object.
 	 */
 	public function handle_status_change( $order_id, $old_status, $new_status, $order ) {
 		$settings = get_option( 'byot_an_settings', array() );
@@ -73,6 +86,12 @@ class BYOT_Order_Handler {
 		$gateway->send( $normalized, $gateway->replace_placeholders( $template, $order ) );
 	}
 
+	/**
+	 * Instantiates the gateway matching the configured type.
+	 *
+	 * @param string $type Gateway type ('twilio' or 'whatsapp').
+	 * @return BYOT_Gateway|null Gateway instance, or null when unknown.
+	 */
 	private function get_gateway( $type ) {
 		switch ( $type ) {
 			case 'twilio':
@@ -84,6 +103,12 @@ class BYOT_Order_Handler {
 		}
 	}
 
+	/**
+	 * Writes a message to the WooCommerce logger, when available.
+	 *
+	 * @param string $message Message to log.
+	 * @param string $level   Log level (info, warning, error, ...).
+	 */
 	private function log( $message, $level = 'info' ) {
 		if ( function_exists( 'wc_get_logger' ) ) {
 			wc_get_logger()->log( $level, $message, array( 'source' => 'byot-auto-notifications' ) );

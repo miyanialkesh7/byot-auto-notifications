@@ -1,4 +1,10 @@
 <?php
+/**
+ * WhatsApp Cloud API gateway.
+ *
+ * @package BYOT_Auto_Notifications
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -10,10 +16,22 @@ class BYOT_WhatsApp_Gateway extends BYOT_Gateway {
 
 	const API_VERSION = 'v18.0';
 
+	/**
+	 * Whether the WhatsApp access token and phone number ID are both set.
+	 *
+	 * @return bool
+	 */
 	public function is_configured() {
 		return ! empty( $this->settings['whatsapp_token'] ) && ! empty( $this->settings['whatsapp_phone_id'] );
 	}
 
+	/**
+	 * Sends a WhatsApp text message via the Meta Cloud API.
+	 *
+	 * @param string $to      E.164 phone number to send to.
+	 * @param string $message Message body to send.
+	 * @return bool True on success.
+	 */
 	public function send( $to, $message ) {
 		if ( ! $this->is_configured() ) {
 			$this->log( 'WhatsApp gateway is not configured.', 'error' );

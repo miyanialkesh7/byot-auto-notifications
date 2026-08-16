@@ -1,4 +1,10 @@
 <?php
+/**
+ * Admin settings page controller.
+ *
+ * @package BYOT_Auto_Notifications
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -9,17 +15,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 class BYOT_Admin {
 
 	const OPTION_NAME = 'byot_an_settings';
-	const PAGE_SLUG    = 'byot-auto-notifications';
+	const PAGE_SLUG   = 'byot-auto-notifications';
 
-	/** @var array */
+	/**
+	 * Cached settings loaded from the options table.
+	 *
+	 * @var array
+	 */
 	private $settings = array();
 
+	/**
+	 * Registers the admin hooks for the settings page.
+	 */
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_menu_page' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 	}
 
+	/**
+	 * Adds the settings page as a WooCommerce submenu item.
+	 */
 	public function add_menu_page() {
 		add_submenu_page(
 			'woocommerce',
@@ -31,6 +47,11 @@ class BYOT_Admin {
 		);
 	}
 
+	/**
+	 * Enqueues the settings page's CSS/JS, only on the plugin's own screen.
+	 *
+	 * @param string $hook Current admin page hook suffix.
+	 */
 	public function enqueue_assets( $hook ) {
 		if ( 'woocommerce_page_' . self::PAGE_SLUG !== $hook ) {
 			return;
@@ -39,6 +60,9 @@ class BYOT_Admin {
 		wp_enqueue_script( 'byot-an-admin', BYOT_AN_URL . 'assets/js/admin.js', array( 'jquery' ), BYOT_AN_VERSION, true );
 	}
 
+	/**
+	 * Registers the plugin's settings with the Settings API.
+	 */
 	public function register_settings() {
 		register_setting(
 			'byot_an_settings_group',
@@ -50,6 +74,12 @@ class BYOT_Admin {
 		);
 	}
 
+	/**
+	 * Sanitizes and whitelists settings submitted from the settings form.
+	 *
+	 * @param array $input Raw submitted settings.
+	 * @return array Sanitized settings.
+	 */
 	public function sanitize_settings( $input ) {
 		$output = array();
 
@@ -73,6 +103,9 @@ class BYOT_Admin {
 		return $output;
 	}
 
+	/**
+	 * Renders the plugin's settings page markup.
+	 */
 	public function render_page() {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			return;
@@ -167,6 +200,8 @@ class BYOT_Admin {
 	}
 
 	/**
+	 * Returns the WooCommerce order statuses available for notifications.
+	 *
 	 * @return array<string,string> Status key (without wc- prefix) => label.
 	 */
 	private function get_order_statuses() {
@@ -177,6 +212,12 @@ class BYOT_Admin {
 		return $statuses;
 	}
 
+	/**
+	 * Reads a single value from the cached settings.
+	 *
+	 * @param string $key Setting key.
+	 * @return string Setting value, or an empty string when not set.
+	 */
 	private function get_setting( $key ) {
 		return isset( $this->settings[ $key ] ) ? $this->settings[ $key ] : '';
 	}

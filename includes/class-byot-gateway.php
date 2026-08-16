@@ -1,4 +1,10 @@
 <?php
+/**
+ * Base class for outbound messaging gateways.
+ *
+ * @package BYOT_Auto_Notifications
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -8,9 +14,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 abstract class BYOT_Gateway {
 
-	/** @var array */
+	/**
+	 * Plugin settings loaded from the options table.
+	 *
+	 * @var array
+	 */
 	protected $settings;
 
+	/**
+	 * Loads the plugin settings shared by every gateway implementation.
+	 */
 	public function __construct() {
 		$this->settings = get_option( 'byot_an_settings', array() );
 	}
@@ -18,6 +31,8 @@ abstract class BYOT_Gateway {
 	/**
 	 * Sends a message to the given E.164 phone number.
 	 *
+	 * @param string $to      E.164 phone number to send to.
+	 * @param string $message Message body to send.
 	 * @return bool True on success.
 	 */
 	abstract public function send( $to, $message );
@@ -27,6 +42,12 @@ abstract class BYOT_Gateway {
 	 */
 	abstract public function is_configured();
 
+	/**
+	 * Writes a message to the WooCommerce logger, when available.
+	 *
+	 * @param string $message Message to log.
+	 * @param string $level   Log level (info, warning, error, ...).
+	 */
 	protected function log( $message, $level = 'info' ) {
 		if ( function_exists( 'wc_get_logger' ) ) {
 			wc_get_logger()->log( $level, $message, array( 'source' => 'byot-auto-notifications' ) );

@@ -1,4 +1,10 @@
 <?php
+/**
+ * Twilio SMS gateway.
+ *
+ * @package BYOT_Auto_Notifications
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -8,12 +14,24 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class BYOT_Twilio_Gateway extends BYOT_Gateway {
 
+	/**
+	 * Whether the Twilio SID, token, and from-number are all set.
+	 *
+	 * @return bool
+	 */
 	public function is_configured() {
 		return ! empty( $this->settings['twilio_sid'] )
 			&& ! empty( $this->settings['twilio_token'] )
 			&& ! empty( $this->settings['twilio_from'] );
 	}
 
+	/**
+	 * Sends an SMS via the Twilio Messages API.
+	 *
+	 * @param string $to      E.164 phone number to send to.
+	 * @param string $message Message body to send.
+	 * @return bool True on success.
+	 */
 	public function send( $to, $message ) {
 		if ( ! $this->is_configured() ) {
 			$this->log( 'Twilio gateway is not configured.', 'error' );
@@ -41,6 +59,14 @@ class BYOT_Twilio_Gateway extends BYOT_Gateway {
 		return $this->handle_response( $response, $to, 'Twilio' );
 	}
 
+	/**
+	 * Logs the result of a gateway HTTP request.
+	 *
+	 * @param array|WP_Error $response HTTP API response.
+	 * @param string         $to       Recipient phone number, for logging.
+	 * @param string         $label    Gateway name, for logging.
+	 * @return bool True when the response was a 2xx success.
+	 */
 	private function handle_response( $response, $to, $label ) {
 		if ( is_wp_error( $response ) ) {
 			$this->log( "{$label} request failed: " . $response->get_error_message(), 'error' );
